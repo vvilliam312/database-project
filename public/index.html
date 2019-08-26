@@ -1,0 +1,56 @@
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    </head>
+    <body>
+        
+        
+        <div id="tabell"></div>
+        <!-- <script> fetch('http://localhost:8000/getall')
+            .then(function(response) {
+              return response.json();
+            })
+            .then(function(myJson) {
+              console.log(JSON.stringify(myJson));
+            });</script> -->
+
+            <script>
+            var personData = document.getElementById("tab");
+            var ourRequest = new XMLHttpRequest();
+            ourRequest.open('GET','http://localhost:8000/getall');
+            ourRequest.onload = function(){
+                var ourData= JSON.parse(ourRequest.responseText);
+                console.log(ourData.data[0]);
+                renderHTML(ourData);
+            }
+            ourRequest.send();
+
+            function renderHTML(data){
+                var htmlString="<table><thead> <tr><th>Name</th><th>Last Name</th><th>Country</th><th>Origin</th></tr></thead>";
+
+                for(var i=0;i < data.data.length;i++){
+                    htmlString+= "<tr><td>"+data.data[i].name+ "</td> <td>"+data.data[i].lastname +   
+                      "<td>"+data.data[i].country_name + "</td>" + "<td>" + data.data[i].origin + "</td>"   
+                        "</td></tr>";
+                    console.log(data.data[i]);
+                }
+                htmlString+="</table>";
+                document.getElementById("tabell").innerHTML = htmlString;
+
+
+            // personData.insertAdjacentHTML('beforeend', htmlString);
+            }
+            function open(){
+                
+            }
+            </script>
+            
+    </body>
+</html>

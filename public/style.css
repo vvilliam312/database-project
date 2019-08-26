@@ -1,0 +1,23 @@
+body {
+    overflow: auto;
+  }
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td,
+  th  {
+    text-transform: capitalize;
+    
+    border: 1px solid #f13636;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr {
+
+    background-color: #dddddd;
+  }
+  
