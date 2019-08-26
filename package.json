@@ -1,18 +1,24 @@
 {
-  "name": "database-project",
+  "name": "snapisak",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
-  "dependencies": {
-    "express": "^4.17.1",
-    "node": "^12.8.1",
-    "sqlite3": "^4.1.0"
-  },
-  "devDependencies": {},
+  "main": "database.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Iknutar/snapisak.git"
+  },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Iknutar/snapisak/issues"
+  },
+  "homepage": "https://github.com/Iknutar/snapisak#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "sqlite3": "^4.1.0"
+  }
 }
