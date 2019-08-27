@@ -6,7 +6,7 @@ body {
     border-collapse: collapse;
     width: 100%;
   }
-  
+  #dialog,
   td,
   th  {
     text-transform: capitalize;

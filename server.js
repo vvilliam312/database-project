@@ -25,10 +25,13 @@ app.get("/", (req, res, next) => {
 });
 
 app.get("/getall", (req, res, next) => {
-    var sql = `SELECT users.name,users.lastname,country.country_name,nationality.origin FROM users INNER JOIN country
+    var sql = `SELECT users.id,info.gender,info.age,users.name,users.lastname,country.country_name,nationality.origin FROM users INNER JOIN country
     ON users.country_id = country.id
     INNER JOIN nationality
-    ON users.nationality_id = nationality.id`
+    ON users.nationality_id = nationality.id
+    INNER JOIN info
+	ON info_id =info.id
+    `
     var params = []
     db.all(sql, params, (err, rows) => {
         if (err) {
@@ -53,6 +56,21 @@ app.get("/all", (req, res, next) => {
         res.json({
             "message":"success",
             "data":rows
+        })
+      });
+});
+
+app.get("/userdata/:id", (req, res, next) => {
+    var sql = "SELECT * FROM info where id = ?"
+    var params = [req.params.id]
+    db.get(sql, params, (err, row) => {
+        if (err) {
+          res.status(400).json({"error":err.message});
+          return;
+        }
+        res.json({
+            "message":"success",
+            "data":row
         })
       });
 });
