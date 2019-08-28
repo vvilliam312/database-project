@@ -21,30 +21,43 @@
     </head>
     <body>
         <h1 class="center">Welcome</h1>
-        <form class="center">
+        <form class="center" method="POST" action="http://localhost:8000/adduser">
                 <div class="form-group">
                   <label for="Input Name">Name</label>
-                  <input type="Name" class="form-control" id="inputName" placeholder="Enter First Name">
+                  <input name="name" type="Name" class="form-control" id="inputName" placeholder="Enter First Name">
                   
                 </div>
                 <div class="form-group">
                   <label for="lastName">Last name</label>
-                  <input type="" class="form-control" id="lastname" placeholder="Enter Last name">
+                  <input name="lastname" type="" class="form-control" id="lastname" placeholder="Enter Last name">
                 </div>
                 <div class="form-group">
                         <label for="Input Name">Country</label>
-                        <input type="Name" class="form-control" id="inputName" placeholder="Enter Country">
+                        <input name="country" type="Name" class="form-control" id="inputName" placeholder="Enter Country">
                         
                       </div>
                       <div class="form-group">
                             <label for="Input Name">Origin</label>
-                            <input type="Name" class="form-control" id="inputName" placeholder="Enter Origin">
+                            <input name="origin" type="Name" class="form-control" id="inputName" placeholder="Enter Origin">
+                            
+                          </div>
+
+                          <div class="form-group">
+                            <label for="exampleFormControlSelect1">Enter Gender</label>
+                            <select class="form-control" id="exampleFormControlSelect1">
+                              <option>Male</option>
+                              <option>Female</option>  
+                            </select>
+
+                          <div class="form-group">
+                            <label for="Input Name">Age</label>
+                            <input type="Name" class="form-control" id="inputName" placeholder="Enter Age">
                             
                           </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
               </form>
               <button type="button" class="btn btn-primary " onclick="window.location.href='/index.html'"><--   Go back to viewing page</button>
         
-        
+      
     </body>
 </html>
