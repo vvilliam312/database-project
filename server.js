@@ -101,7 +101,7 @@ app.get("/userdata/:id", (req, res, next) => {
 //ADD// 
 
 app.post("/adduser", (req, res, next) => {
-    console.log(req.body);
+    console.log(req.body); 
     
     var sql = `INSERT INTO nationality (origin) values('${req.body.origin}')`
     var sql2 = `INSERT INTO country (country_name) values('${req.body.country}')`
@@ -138,7 +138,7 @@ app.post("/adduser", (req, res, next) => {
         } 
         res.json({
             "message":"Ok",
-            
+           
         })
         
       });
