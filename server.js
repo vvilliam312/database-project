@@ -25,12 +25,10 @@ app.get("/", (req, res, next) => {
 });
 
 app.get("/getall", (req, res, next) => {
-    var sql = `SELECT users.id,info.gender,info.age,users.name,users.lastname,country.country_name,nationality.origin FROM users INNER JOIN country
+    var sql = `SELECT users.id,users.name,users.lastname,country.country_name,nationality.origin,users.gender,users.age FROM users INNER JOIN country
     ON users.country_id = country.id
     INNER JOIN nationality
     ON users.nationality_id = nationality.id
-    INNER JOIN info
-	ON info_id =info.id
     `
     var params = []
     db.all(sql, params, (err, rows) => {
@@ -104,27 +102,35 @@ app.get("/userdata/:id", (req, res, next) => {
 
 app.post("/adduser", (req, res, next) => {
     console.log(req.body);
+    
     var sql = `INSERT INTO nationality (origin) values('${req.body.origin}')`
     var sql2 = `INSERT INTO country (country_name) values('${req.body.country}')`
     var sql3 = `INSERT INTO users (name,lastname) values('${req.body.name}','${req.body.lastname}')`//SIST
+    var nid;
+    var cid;
+    
+
     var params = []
-    db.run(sql, params, (err, rows) => {
+    
+    db.run(sql, params,  function (err) {
+       
+        
         if (err) {
           res.status(400).json({"error":err.message});
+          
           return;
         } 
-        
-      }).run (sql2, params, (err, rows) => {
+        nid = this.lastID;
+
+      }).run (sql2, params, function (err) {
           
         if (err) {
           res.status(400).json({"error":err.message});
           return;
         } 
+     cid = this.lastID;
+     db.run (`INSERT INTO users (name,lastname,country_id,nationality_id,gender,age) values('${req.body.name}','${req.body.lastname}','${nid}','${cid}','${req.body.gender}','${req.body.age}')`, params, function (err) {
         
-        
-        
-      }).run (sql3, params, (err, rows) => {
-        console.log(this.lastID);
         if (err) {
             
           res.status(400).json({"error":err.message});
@@ -132,8 +138,11 @@ app.post("/adduser", (req, res, next) => {
         } 
         res.json({
             "message":"Ok",
-            "data":rows
+            
         })
         
       });
+        
+      })
+
 });
