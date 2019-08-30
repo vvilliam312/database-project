@@ -9,7 +9,19 @@
         <title>Add User</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  function hello(){
+    //alert("hello")
+    console.log("text")
+    document.getElementById("dialog").innerHTML = "The form was sent"
+    $('#dialog').dialog('open')
+
+}
+</script>
         <style>
         .center {
   margin: auto;
@@ -17,47 +29,94 @@
   border: 3px solid green;
   padding: 10px;
 }
+#dialog {
+    width: 60%;
+    height: 40px;
+    margin: 10px auto;
+    padding: 5px;
+    border: 1px solid #777;
+    background-color: #fbca93;
+    text-align: center;
+  }
         </style>
     </head>
     <body>
         <h1 class="center">Welcome</h1>
-        <form class="center" method="POST" action="http://localhost:8000/adduser">
+        <div id="dialog" style="display: none"></div>
+        <form id="idForm" class="center" >
                 <div class="form-group">
                   <label for="Input Name">Name</label>
-                  <input name="name" type="Name" class="form-control" id="inputName" placeholder="Enter First Name">
+                  <input name="name" type="Name" class="reset form-control" id="inputName" placeholder="Enter First Name">
                   
                 </div>
                 <div class="form-group">
                   <label for="lastName">Last name</label>
-                  <input name="lastname" type="" class="form-control" id="lastname" placeholder="Enter Last name">
+                  <input name="lastname" type="" class="reset form-control" id="lastname" placeholder="Enter Last name">
                 </div>
                 <div class="form-group">
                         <label for="Input Name">Country</label>
-                        <input name="country" type="Name" class="form-control" id="inputName" placeholder="Enter Country">
+                        <input name="country" type="Name" class="reset form-control" id="inputName" placeholder="Enter Country">
                         
                       </div>
                       <div class="form-group">
                             <label for="Input Name">Origin</label>
-                            <input name="origin" type="Name" class="form-control" id="inputName" placeholder="Enter Birth Country">
+                            <input name="origin" type="Name" class="reset form-control" id="inputName" placeholder="Enter Birth Country">
                             
                           </div>
 
                           <div class="form-group">
                             <label for="exampleFormControlSelect1">Enter Gender</label>
                             <select name="gender" class="form-control" id="exampleFormControlSelect1">
+                              <option value="" ></option>
                               <option value="male">Male</option>
                               <option value="female">Female</option>  
                             </select>
 
                           <div class="form-group">
                             <label for="Input Name">Age</label>
-                            <input name="age" type="Name" class="form-control" id="inputName" placeholder="Enter Age">
+                            <input name="age" type="Name" class="reset form-control" id="inputName" placeholder="Enter Age">
                             
                           </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+               
               </form>
+              <button type="button" class="btn btn-primary " onclick="sendForm()">SEND</button>
               <button type="button" class="btn btn-primary " onclick="window.location.href='/index.html'"><--   Go back to viewing page</button>
         
+      <script>
+        $("#dialog").dialog({ autoOpen: false });
+      function sendForm(){
       
+    
+        var form = $("#idForm");
+        var url = "http://localhost:8000/adduser";
+    
+        $.ajax({
+               type: "POST",
+               url: url,
+               dataType: "json",
+               data: form.serialize(), // serializes the form's elements.
+               success: function(data)
+               {
+                
+                
+            
+                $(':input','#idForm')
+  .not(':button, :submit, :reset, :hidden')
+  .val('')
+  .prop('checked', false)
+  .prop('selected', false);
+            hello();
+                 console.log("SENT SUCCESSFULLY")
+                 
+               }
+             });
+       
+    
+
+  }
+  
+  </script>
+
+
     </body>
 </html>

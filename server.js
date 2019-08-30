@@ -25,7 +25,7 @@ app.get("/", (req, res, next) => {
 });
 
 app.get("/getall", (req, res, next) => {
-    var sql = `SELECT users.id,users.name,users.lastname,country.country_name,nationality.origin,users.gender,users.age FROM users INNER JOIN country
+    var sql = `SELECT users.id AS userid,users.name,users.lastname,country.id AS countryid,nationality.id AS nationalityid, country.country_name,nationality.origin,users.gender,users.age FROM users INNER JOIN country
     ON users.country_id = country.id
     INNER JOIN nationality
     ON users.nationality_id = nationality.id
@@ -75,33 +75,28 @@ app.get("/userdata/:id", (req, res, next) => {
 
 
 
-// //Delete//
-// app.delete("/getall/:id", (req, res, next) => {
-//     var sql = `SELECT users.id,info.gender,info.age,users.name,users.lastname,country.country_name,nationality.origin FROM users INNER JOIN country
-//     ON users.country_id = country.id
-//     INNER JOIN nationality
-//     ON users.nationality_id = nationality.id
-//     INNER JOIN info
-// 	ON info_id =info.id
-//     `
-//     var params = []
-//     db.all(sql, params, (err, rows) => {
-//         if (err) {
-//           res.status(400).json({"error":err.message});
-//           return;
-//         } 
-//         res.json({
-//             "message":"success",
-//             "data":rows
-//         })
-//       });
-// });
+//Delete//
+app.post("/deleter", (req, res, next) => {
+  console.log(req.body);
+    // var sql = `DELETE FROM users WHERE id=${req.body.id} `
+    // var params = []
+    // db.run(sql, params, function(err) {
+    //     if (err) {
+    //       res.status(400).json({"error":err.message});
+    //       return;
+    //     } 
+        res.json({
+             "message":"success",
+    
+         })
+    // });
+});
 
 
 //ADD// 
 
 app.post("/adduser", (req, res, next) => {
-    console.log(req.body); 
+    // console.log(req.body); 
     
     var sql = `INSERT INTO nationality (origin) values('${req.body.origin}')`
     var sql2 = `INSERT INTO country (country_name) values('${req.body.country}')`
@@ -136,13 +131,14 @@ app.post("/adduser", (req, res, next) => {
           res.status(400).json({"error":err.message});
           return;
         } 
+        console.log("DET FUNKAR");
         res.json({
             "message":"Ok",
            
         })
         
       });
-        
+        console.log("WORKS");
       })
 
 });

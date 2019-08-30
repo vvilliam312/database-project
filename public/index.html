@@ -17,6 +17,7 @@
             
             <button type="button" class="btn btn-primary" onclick="window.location.href='/AddUser.html'">Add new Users</button>
             <button type="button" class="btn btn-primary" onclick="window.location.href='/delete.html'">Delete Users</button>
+            <button type="button" class="btn btn-primary" onclick="window.location.href='/index.html'">Update</button>
         <div id="tabell"></div>
         <div id="dialog" style="display: none"></div>
         <!-- <script> fetch('http://localhost:8000/getall')
@@ -43,13 +44,11 @@
                 var htmlString="<table><thead> <tr><th>Name</th><th>Last Name</th><th>Country</th><th>Origin</th></tr></thead>";
 
                 for(var i=0;i < data.data.length;i++){
-                    /*htmlString+= "<tr><td id='dialog"+i +"'><a href='javascript:hello()'>"+data.data[i].name+ "</a></td> <td>"+data.data[i].lastname +   
-                      "<td>"+data.data[i].country_name + "</td>" + "<td>" + data.data[i].origin + "</td>"   
-                        "</td></tr>";*/
+                    
                     htmlString+= `<tr><td> <a href="javascript:hello('<p>Gender ${data.data[i].gender}</p><p> Age ${data.data[i].age}</p>' )">${data.data[i].name}
                         </a></td>
                         <td>${data.data[i].lastname}<td>${data.data[i].country_name}</td><td>
-                               ${data.data[i].origin} </td></td></tr> `
+                               ${data.data[i].origin} </td><td><button type="button" onclick="javascript:deleter(${data.data[i].userid},${data.data[i].countryid},${data.data[i].nationalityid})">DELETE</button></td></tr> `
                     console.log(data.data[i]);
                 }
                 htmlString+="</table>";
@@ -66,6 +65,18 @@ function hello(text){
     document.getElementById("dialog").innerHTML = text
     $('#dialog').dialog('open')
 
+}
+function deleter(userid,countryid,nationalityid){
+    console.log(userid);
+    $.ajax({
+    type: "POST",
+   dataType: "json",   
+    url: "http://localhost:8000/deleter",
+   data: "userid="+userid+"&"+ "countryid="+ countryid +"&"+ "nationalityid="+nationalityid,
+    success: function(msg){
+        alert("Data Deleted: " + msg);
+    }
+});
 }
     
             </script>
